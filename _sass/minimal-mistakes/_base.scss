@@ -13,6 +13,7 @@ body {
   padding: 0;
   color: $text-color;
   font-family: $global-font-family;
+  font-size: 14px;  // 기본 폰트 크기 설정 (16px에서 15px로 줄이기)
   line-height: 1.5;
 
   &.overflow--hidden {
@@ -35,27 +36,33 @@ h6 {
 
 h1 {
   margin-top: 0;
-  font-size: $h-size-1;
+  font-size: 2em;  // $h-size-1을 2em으로 설정
+  // font-size: $h-size-1;
 }
 
 h2 {
-  font-size: $h-size-2;
+  font-size: 1.75em;  // $h-size-2을 1.75em으로 설정
+  // font-size: $h-size-2;
 }
 
 h3 {
-  font-size: $h-size-3;
+  font-size: 1.5em;  // $h-size-3을 1.5em으로 설정
+  // font-size: $h-size-3;
 }
 
 h4 {
-  font-size: $h-size-4;
+  font-size: 1.25em;  // $h-size-4을 1.25em으로 설정
+  // font-size: $h-size-4;
 }
 
 h5 {
-  font-size: $h-size-5;
+  font-size: 1em;  // $h-size-5을 1em으로 설정
+  // font-size: $h-size-5;
 }
 
 h6 {
-  font-size: $h-size-6;
+  font-size: 0.875em;  // $h-size-6을 0.875em으로 설정
+  // font-size: $h-size-6;
 }
 
 small,
