@@ -2,6 +2,8 @@
 
 layout: single  
 title: "자율주행 SW 고도화 경진대회 프로젝트"  
+categories: Projects
+tags: [자율주행, ROS]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
 toc: true  
