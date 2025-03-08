@@ -2,7 +2,8 @@
 
 layout: single  
 title: "RealTime-SAM2-Tracker-Camera"  
-categories: Projects
+# categories: Projects
+tags: [Projects, SAM2]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
 toc: true  

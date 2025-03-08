@@ -2,8 +2,8 @@
 
 layout: single  
 title: "자율주행 SW 고도화 경진대회 프로젝트"  
-categories: Projects
-tags: [자율주행, ROS]
+# categories: Projects
+tags: [Projects, 자율주행, ROS]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
 toc: true  
@@ -199,5 +199,5 @@ classes: "text-white"
 ## 최종 결과
 
   **최종 결과: 금상 (2위)**
-  
+
 ![image-20241110012400056](../images/2024-11-09-innoDriver_SNU2024FMTC_contest_portfolio/image-20241110012400056.png)

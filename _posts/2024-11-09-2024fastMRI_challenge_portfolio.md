@@ -2,7 +2,8 @@
 
 layout: single  
 title: "2024 SNU FastMRI Challenge 프로젝트"  
-categories: Projects
+# categories: Projects
+tags: [Projects, AI, MRI reconstruction]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
 toc: true  
