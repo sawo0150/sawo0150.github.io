@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "과일 수확 로봇 (Berry-Good Bot) | 2025 공과대학 창의설계축전"
+title: "과일 수확 로봇 (Berry-Good Bot) - 2025 공과대학 창의설계축전"
 tags: [Projects, Robotics, ROS2, Jetson, Visual-Servoing, YOLO, Agriculture]
 excerpt: "저비용(약 115만원) ROS2 기반 모듈형 과일 수확 로봇: YOLO-Pose 인식 + Hybrid Visual Servo + Behavior Tree로 수확 자동화"
 author_profile: true
@@ -124,7 +124,7 @@ classes: "text-white"
 
 > 개발 이슈: 일부 MEGA 호환 보드 드라이버 문제로, Jetson 커널 드라이버를 빌드해 적용한 경험도 있었습니다(현장 통합 난이도 높았던 포인트).
 
-- 코드: https://github.com/sawo0150/berry-good-bot/tree/main/berry_serial_bridge
+- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_serial_bridge)
 
 ---
 
@@ -137,7 +137,7 @@ classes: "text-white"
 
 또한 Arduino 관절 각도 컨벤션과 URDF 컨벤션이 달라,
 - yaml 파라미터를 조정하며 **선형 매핑(m, n) 형태로 컨벤션 보정**을 수행했습니다.
-- 코드: https://github.com/sawo0150/berry-good-bot/tree/main/robot/berrybot_description
+- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/robot/berrybot_description)
 - ![image-20251224182233504](../images/2025-10-02-berry-good-bot/image-20251224182233504.png)
 
 ---
@@ -160,7 +160,7 @@ MoveIt2를 고려했지만(빌드/리소스 부담 + 자유도/환경 제약), �
 - 미세 서보잉이 가능해져 “근접 수확 단계”에서 가장 유효했습니다.
 - 구현에 roboticstoolbox 등을 사용해 URDF 기반 Jacobian을 구성
 
-- 코드: https://github.com/sawo0150/berry-good-bot/tree/main/berry_kinematics_control/berry_kinematics_control
+- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_kinematics_control/berry_kinematics_control)
 
 ---
 
@@ -173,8 +173,8 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 
 학습은 RTX 4070 Ti SUPER 환경에서 수행했고, 예측 결과가 라벨과 매우 유사한 수준까지 맞도록 튜닝했습니다.
 
-- 데이터셋: https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan  
-- 모델/학습 파라미터: https://github.com/eric-mjk/berrybot-perception
+- 데이터셋: [Link](https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan)  
+- 모델/학습 파라미터: [Link](https://github.com/eric-mjk/berrybot-perception)
 
 ### Rough Approach용 3D 위치 추정 (RGB-D 기반)
 - RGB-D 카메라에서 confidence 최고 bbox 선택
@@ -195,7 +195,7 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
   - 하단 RGB 카메라의 줄기 keypoint ray를 매칭해  
   **두 ray의 최근접점(기하 기반)으로 줄기점 3D를 추정**  
   → “가까워도 줄기점 3D를 반환”하도록 구성했습니다.
-- 코드: https://github.com/sawo0150/berry-good-bot/tree/main/berry_perception
+- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_perception)
 - ![image-20251224182333120](../images/2025-10-02-berry-good-bot/image-20251224182333120.png)
 - ![image-20251224182405059](../images/2025-10-02-berry-good-bot/image-20251224182405059.png)
 
@@ -231,7 +231,7 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 - 각 단계는 모두 Action Server 형태라,
   - BT 노드에서 래핑해 호출하는 구조로 모듈성이 좋았습니다.
 - 실행은 hydra 기반 설정으로 파라미터/BT xml/node 구성을 쉽게 바꾸도록 했습니다.
-- BT 예시(XML): https://github.com/sawo0150/berry-good-bot/blob/main/behavior_trees/pick_with_loops.xml
+- BT 예시(XML): [Link](https://github.com/sawo0150/berry-good-bot/blob/main/behavior_trees/pick_with_loops.xml)
 - ![image-20251224182436487](../images/2025-10-02-berry-good-bot/image-20251224182436487.png)
 
 ---
@@ -251,9 +251,9 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 ---
 
 ## Links
-- **ROS2 통합/제어 코드(GitHub)**: https://github.com/sawo0150/berry-good-bot
-- **YOLO 데이터셋(Roboflow)**: https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan
-- **YOLO 모델/학습 파라미터**: https://github.com/eric-mjk/berrybot-perception
+- **ROS2 통합/제어 코드(GitHub)**: [https://github.com/sawo0150/berry-good-bot](https://github.com/sawo0150/berry-good-bot)
+- **YOLO 데이터셋(Roboflow)**: [https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan](https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan)
+- **YOLO 모델/학습 파라미터**: [https://github.com/eric-mjk/berrybot-perception](https://github.com/eric-mjk/berrybot-perception)
 
 ---
 
