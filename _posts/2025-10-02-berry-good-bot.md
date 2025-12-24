@@ -22,7 +22,11 @@ classes: "text-white"
 ---
 
 ## 한 줄 소개
-**국내 소규모 비닐하우스 환경을 목표로, 약 115만원 수준의 저비용 하드웨어 + ROS2 모듈형 아키텍처 + YOLO-Pose 인식 + Hybrid Visual Servoing(IBVS+PBVS) + Behavior Tree로 ‘반복 가능한 수확 루프’를 구현한 과일 수확 로봇**입니다.
+**국내 소규모 비닐하우스 환경을 목표로, 약 115만원 수준의 저비용 하드웨어 + ROS2 모듈형 아키텍처 + YOLO-Pose 인식 + Hybrid Visual Servoing(IBVS+PBVS) + Behavior Tree로 ‘반복 가능한 수확 루프’를 구현한 과일 수확 로봇**입니다.  
+
+  ![과일수확로봇-대표이미지](../images/2025-10-02-berry-good-bot/과일수확로봇-대표이미지.png)
+
+> {% include video id="eAwnoZv1Vwg" provider="youtube" %}
 
 ---
 
@@ -133,8 +137,8 @@ classes: "text-white"
 
 또한 Arduino 관절 각도 컨벤션과 URDF 컨벤션이 달라,
 - yaml 파라미터를 조정하며 **선형 매핑(m, n) 형태로 컨벤션 보정**을 수행했습니다.
-
 - 코드: https://github.com/sawo0150/berry-good-bot/tree/main/robot/berrybot_description
+- ![image-20251224182233504](../images/2025-10-02-berry-good-bot/image-20251224182233504.png)
 
 ---
 
@@ -176,6 +180,7 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 - RGB-D 카메라에서 confidence 최고 bbox 선택
 - bbox 내부 depth에 대해 outlier 제거 후 **상위 25% 깊이 평균** 등으로 강건화
 - base_link 기준 접근점(과일점에서 일정 거리 offset)과 EEF 포즈를 반환
+- ![image-20251224182311898](../images/2025-10-02-berry-good-bot/image-20251224182311898.png)
 
 ### Fine Approach용 3D 줄기점 추정 (RGB-D 한계 우회)
 근접(약 20cm 이내)에서는 RGB-D가 값이 불안정/누락되는 문제가 있어, 다른 전략이 필요했습니다.
@@ -190,8 +195,9 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
   - 하단 RGB 카메라의 줄기 keypoint ray를 매칭해  
   **두 ray의 최근접점(기하 기반)으로 줄기점 3D를 추정**  
   → “가까워도 줄기점 3D를 반환”하도록 구성했습니다.
-
 - 코드: https://github.com/sawo0150/berry-good-bot/tree/main/berry_perception
+- ![image-20251224182333120](../images/2025-10-02-berry-good-bot/image-20251224182333120.png)
+- ![image-20251224182405059](../images/2025-10-02-berry-good-bot/image-20251224182405059.png)
 
 ---
 
@@ -212,6 +218,8 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 최종적으로 두 속도를 합성해 ServoTwist로 구동했습니다.
 - `V = V_IBVS + V_PBVS`
 
+  ​    ![그림입니다.  원본 그림의 이름: CLP0000590c441b.bmp  원본 그림의 크기: 가로 2240pixel, 세로 734pixel](../images/2025-10-02-berry-good-bot/tmpA543.jpg)  ![그림입니다.  원본 그림의 이름: CLP000064100004.bmp  원본 그림의 크기: 가로 2234pixel, 세로 578pixel](../images/2025-10-02-berry-good-bot/tmp2261.jpg)  
+
 ---
 
 ## 6) Behavior Tree: 수확 루프 & 예외 처리 로직
@@ -223,19 +231,19 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 - 각 단계는 모두 Action Server 형태라,
   - BT 노드에서 래핑해 호출하는 구조로 모듈성이 좋았습니다.
 - 실행은 hydra 기반 설정으로 파라미터/BT xml/node 구성을 쉽게 바꾸도록 했습니다.
-
 - BT 예시(XML): https://github.com/sawo0150/berry-good-bot/blob/main/behavior_trees/pick_with_loops.xml
+- ![image-20251224182436487](../images/2025-10-02-berry-good-bot/image-20251224182436487.png)
 
 ---
 
 ## 비용 분석 / 팀 역할 분담
-### 비용(천원)
-- 기계부품(모터, 필라멘트, 베어링): 500
-- 전자제품(젯슨, RGB, RGB-D 카메라): 600
-- 기타(과일 모형, 필라멘트): 50  
-→ **합계: 1,150 (천원)**
+### 비용
+- 기계부품(모터, 필라멘트, 베어링): 50만원
+- 전자제품(젯슨, RGB, RGB-D 카메라): 60만원
+- 기타(과일 모형, 필라멘트): 5만원  
+→ **합계: 115만원 **
 
-### 팀 역할(각 33.33%)
+### 팀 역할
 - 권태영: 로봇 하드웨어 설계 및 제작
 - 김민준: YOLO-Pose 딥러닝 모델 개발
 - 박상원(나): 시스템 통합 및 제어 소프트웨어 개발
@@ -249,16 +257,17 @@ YOLO는 아래를 동시에 추정하도록 설계했습니다.
 
 ---
 
-## (선택) 이미지/데모 삽입 가이드
-아래처럼 이미지 경로만 맞춰 넣으면 게시글 퀄리티가 확 올라갑니다.
+## Images & Videos
 
-- 로봇 실물 사진(과제보고서 1p 하단)
-- YOLO 인식 결과/성능 그래프(과제보고서 3p)
-- Behavior Tree 다이어그램 및 수확 시퀀스(과제보고서 4p)
+> ![image-20251224184051347](../images/2025-10-02-berry-good-bot/image-20251224184051347.png)
 
-예:
-![robot-demo](../images/2025-xx-xx-berry-good-bot/robot_demo.png)
-![yolo-result](../images/2025-xx-xx-berry-good-bot/yolo_result.png)
-![bt-diagram](../images/2025-xx-xx-berry-good-bot/bt_diagram.png)
+> ![image-20251224184307131](../images/2025-10-02-berry-good-bot/image-20251224184307131.png)
+
+
+> {% include video id="eAwnoZv1Vwg" provider="youtube" %}
+
+> {% include video id="T6ebTg6ipFc" provider="youtube" %}
+
+> {% include video id="DdS0xmefjrk" provider="youtube" %}
 
 ---
