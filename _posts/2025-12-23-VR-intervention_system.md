@@ -13,12 +13,10 @@ header:
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "VRIS (VR Intervention System)"
   actions:
-    - label: "Final Report (PDF)"
-      url: "/assets/files/2025-2_vris_final_report.pdf"
-    - label: "Slides (PDF)"
-      url: "/assets/files/2025-2_vris_slides.pdf"
-    # - label: "GitHub Repository"
-    #   url: "https://github.com/<your-repo>"
+    - label: "GitHub Repo"
+      url: "https://github.com/sawo0150/VR-InterventionSystem"
+    - label: "GitHub Repo - Robot"
+      url: "https://github.com/sawo0150/VR-InterventionSystem_Robot"
 classes: "text-white"
 ---
 
@@ -26,31 +24,35 @@ classes: "text-white"
 
 > **한 명(또는 소수)의 오퍼레이터가 VR 관제실에서 다수 로봇을 모니터링**하고,  
 > 자율주행이 해결하기 어려운 **예외 상황(Edge Case)** 에서만 **VR로 제어권을 넘겨받아 개입(Intervention)** 하는 시스템을 구현했습니다.  
-> *(시뮬레이션 + 실제 로봇 연동 모두 구현)* :contentReference[oaicite:0]{index=0}
+> *(시뮬레이션 + 실제 로봇 연동 모두 구현)* 
+
+{% include video id="u10mQcBseCA" provider="youtube" %}
+
+{% include video id="f3-wrwbEFRE" provider="youtube" %}
 
 ---
 
 ## 소개
 
-물류센터/배달로봇/로보택시/드론과 같이 **대규모 무인 자동화 시스템**이 확산되면서, “Fleet Management(군집 관제)”가 중요해지고 있습니다.  
+물류센터/배달로봇/로보택시/드론과 같이 **대규모 무인 자동화 시스템**이 확산되면서, “군집 관제”가 중요해지고 있습니다.  
 하지만 자율주행은 아직 모든 상황을 완벽히 처리하기 어렵고(시야 제한, 돌발 장애물, 보행자/어린이 등), 기존 2D 관제 화면만으로는 상황 이해에 한계가 있습니다.
 
 VRIS는 이를 해결하기 위해:
 
 - **VR 기반 가상 관제실(Virtual Control Room)** 에서 여러 로봇을 직관적으로 모니터링하고
 - 특정 로봇에서 문제가 발생하면 **1인칭(로봇 POV) 제어실로 전환**하여
-- **오퍼레이터가 직접 원격 개입** 후 다시 자율주행으로 복귀시키는 흐름을 제공합니다. :contentReference[oaicite:1]{index=1}
+- **오퍼레이터가 직접 원격 개입** 후 다시 자율주행으로 복귀시키는 흐름을 제공합니다.
 
 ---
 
 ## 기간 / 인원 / 역할
 
-- **기간**: 2025년 2학기 프로젝트
+- **기간**: 2025년 2학기 VR/AR의 실습 및 개론 수업 프로젝트
 - **인원**: 6인 팀 프로젝트 (VRIS Brothers)
 - **내 역할 (팀장)**: **통신 및 로봇 소프트웨어 개발**  
   - ROS2 기반 로봇 시스템 구성/연동
   - WebRTC + TCP Socket 하이브리드 통신 구조 구현
-  - VR ↔ Robot 제어/상태 동기화, 모드 전환(중재) 로직 설계 :contentReference[oaicite:2]{index=2}
+  - VR ↔ Robot 제어/상태 동기화, 모드 전환(중재) 로직 설계
 
 ---
 
@@ -60,13 +62,15 @@ VRIS는 이를 해결하기 위해:
 - **ROS2 (Humble)** 기반 로봇 노드 구성 (SLAM/제어/상태 송수신)
 - **Unity (VR)**: Monitoring Room / Control Room UI 및 인터랙션
 - **WebRTC (P2P)**: 360° 영상 초저지연 스트리밍
-- **TCP Socket + Signaling/Relay Server**: 제어/상태 데이터 안정 동기화(JSON) :contentReference[oaicite:3]{index=3} :contentReference[oaicite:4]{index=4}
+- **TCP Socket + Signaling/Relay Server**: 제어/상태 데이터 안정 동기화(JSON)
 
 ### Hardware (Real Robot)
+  <img src="../images/2025-12-23-VR-intervention_system/tmp172D-1766575993685.jpg" alt="그림입니다.  원본 그림의 이름: CLP00003ab80001.bmp  원본 그림의 크기: 가로 2081pixel, 세로 1365pixel" style="zoom:50%;" />  
+
 - **Computing**: Laptop (RTX 3070, Ubuntu 22.04, ROS2 Humble)
 - **MCU**: Arduino UNO (모터 제어)
 - **Sensors**: RPLidar A3M1, HFI-A9 IMU, Insta360 (360 카메라)
-- **Mobile Platform**: 로봇청소기 기반 이동 플랫폼 개조 :contentReference[oaicite:5]{index=5}
+- **Mobile Platform**: 로봇청소기 기반 이동 플랫폼 개조
 
 ---
 
@@ -80,14 +84,11 @@ VRIS는 이를 해결하기 위해:
 - **Mode Manager (제어권 중재)**  
   - 평상시: 자율주행(시나리오) 신호  
   - 비상/개입 시: VR 조이스틱 기반 수동 제어 신호  
-  - 두 제어 입력을 안전하게 중재하여 “자율 ↔ 개입” 전환을 가능하게 함 :contentReference[oaicite:6]{index=6} :contentReference[oaicite:7]{index=7}
+  - 두 제어 입력을 안전하게 중재하여 “자율 ↔ 개입” 전환을 가능하게 함
 
-> 아래 이미지는 발표자료의 로봇 시스템 다이어그램(“ROBOT SYSTEM”)을 포트폴리오용으로 캡처해 둔 것입니다.  
-> (사이트에 업로드 후 경로만 맞춰주세요)
+> ![그림입니다.  원본 그림의 이름: CLP000022944a70.bmp  원본 그림의 크기: 가로 1405pixel, 세로 649pixel](../images/2025-12-23-VR-intervention_system/tmp9F4F.jpg)
 >
-> - 예시 경로: `/assets/images/projects/vris/robot_system.png`
->
-> ![ROBOT SYSTEM Diagram](/assets/images/projects/vris/robot_system.png)
+>   ![그림입니다.  원본 그림의 이름: CLP000022940002.bmp  원본 그림의 크기: 가로 3286pixel, 세로 1080pixel](../images/2025-12-23-VR-intervention_system/tmpA8F4.jpg)  
 
 ### 2) 하이브리드 통신 시스템 (영상 vs 데이터 분리)
 
@@ -96,32 +97,35 @@ VR 원격 조작에서 중요한 것은 **(1) 멀미를 줄이는 초저지연 �
 
 - **Track 1 (Video / WebRTC P2P)**  
   - 360° 고해상도 영상 **P2P 직접 전송**
-  - 목표: **Latency 200ms 미만**으로 원격 조작 시 인지 부조화(멀미) 최소화 :contentReference[oaicite:8]{index=8} :contentReference[oaicite:9]{index=9}
+  - 목표: **Latency 200ms 미만**으로 원격 조작 시 인지 부조화(멀미) 최소화
 - **Track 2 (Data / TCP Socket)**  
   - 제어(Control) & 로봇 상태(State) **손실 없는 동기화**
   - Signaling/Relay Server를 통해 JSON 메시지 중계  
   - Robot→VR: SLAM pose/상태/오류  
-  - VR→Robot: 조이스틱 입력(cmd), 모드 전환 신호 :contentReference[oaicite:10]{index=10} :contentReference[oaicite:11]{index=11}
+  - VR→Robot: 조이스틱 입력(cmd), 모드 전환 신호
 
-> 아래 이미지도 발표자료의 “Hybrid Communication System” 다이어그램 기반 캡처입니다.
+>   ![그림입니다.  원본 그림의 이름: CLP000022940001.bmp  원본 그림의 크기: 가로 761pixel, 세로 683pixel](../images/2025-12-23-VR-intervention_system/tmp97CE.jpg)  
 >
-> - 예시 경로: `/assets/images/projects/vris/hybrid_comm.png`
->
-> ![Hybrid Communication System Diagram](/assets/images/projects/vris/hybrid_comm.png)
 
 ---
 
 ## 주요 기능
 
 ### 1) Monitoring Room (통합 관제실)
+
+![image-20251224203728321](../images/2025-12-23-VR-intervention_system/image-20251224203728321.png)
+
 - **미니맵**에서 여러 로봇의 위치/상태를 한눈에 확인
 - **로봇 카메라 뷰**를 목록으로 제공하고, 클릭 시 개입(Intervention) 진입
-- 로봇에서 에러 발생 시 **Alert(경고) + 에러 위치 표시 + 텔레포트 트리거** 제공 :contentReference[oaicite:12]{index=12}
+- 로봇에서 에러 발생 시 **Alert(경고) + 에러 위치 표시 + 텔레포트 트리거** 제
 
 ### 2) Control Room (1인칭 제어실)
+
+![image-20251224203743241](../images/2025-12-23-VR-intervention_system/image-20251224203743241.png)
+
 - 로봇 카메라를 기반으로 **360° 파노라마 뷰** 제공(Insta360 투영)
 - VR 컨트롤러(오른손 조이스틱)로 로봇을 직접 조작  
-- 개입 종료 후 자율주행 모드로 복귀 :contentReference[oaicite:13]{index=13}
+- 개입 종료 후 자율주행 모드로 복귀
 
 ---
 
@@ -134,15 +138,16 @@ VR 원격 조작에서 중요한 것은 **(1) 멀미를 줄이는 초저지연 �
 - 장애물:
   1) 낙석(움직이는 장애물) 회피  
   2) 안개/구름으로 시야 제한 구간 통과  
-  3) 야생동물 돌발 출현 회피 :contentReference[oaicite:15]{index=15}
+  3) 야생동물 돌발 출현 회피
 
 ### Event 2: Unexpected Road Block (돌발 경로 차단/우회)
+
 - 쓰러진 나무로 도로가 차단 → 로봇이 에러 감지
-- 사용자가 VR로 상황 확인 후 **Off-road 우회** 등 유연한 판단으로 목적지 도달 :contentReference[oaicite:16]{index=16}
+- 사용자가 VR로 상황 확인 후 **Off-road 우회** 등 유연한 판단으로 목적지 도달 
 
 ### Event 3: Children Crossing Area (어린이 보호구역)
 - 스쿨존 진입 시 자동 주행을 멈추고 사용자 개입 요청
-- 어린이의 불규칙한 움직임을 고려해 사람이 직접 서행/안전 주행 :contentReference[oaicite:17]{index=17}
+- 어린이의 불규칙한 움직임을 고려해 사람이 직접 서행/안전 주행
 
 ---
 
@@ -181,14 +186,10 @@ VR 원격 조작에서 중요한 것은 **(1) 멀미를 줄이는 초저지연 �
 
 ## 첨부 자료
 
-- 발표자료(PDF): VRIS 프로젝트 전체 흐름 및 데모 구성 :contentReference[oaicite:23]{index=23}  
-- 최종 결과보고서(PDF): 목표/구현/결과/회고 정리 :contentReference[oaicite:24]{index=24}
+- 최종 결과보고서(PDF): 목표/구현/결과/회고 정리 : [Link](/assets/files/VRInterventsionSystem_report.pdf)
+
+{% include video id="u10mQcBseCA" provider="youtube" %}
+
+{% include video id="f3-wrwbEFRE" provider="youtube" %}
 
 ---
-
-## (선택) 데모 영상 삽입 위치
-
-> 아래는 너의 유튜브/시연 영상 ID가 준비되면 넣을 수 있게 자리만 만들어둔 섹션이야.
-
-<!-- {% include video id="YOUR_YOUTUBE_ID_1" provider="youtube" %} -->
-<!-- {% include video id="YOUR_YOUTUBE_ID_2" provider="youtube" %} -->
