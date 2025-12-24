@@ -18,12 +18,12 @@ header:
 classes: "text-white"
 ---
 
-# 팀 프로젝트 - 2025 SNU FastMRI Challenge (GeekSeek) 🧠🩻
+# 팀 프로젝트 - 2025 SNU FastMRI Challenge (GeekSeek) 🧠
 
 ---
 
 ## 소개
-본 프로젝트는 **가속 MRI 재구성(Accelerated MRI Reconstruction)** 문제를 대상으로, 제한된 자원(예: VRAM) 환경에서 **데이터 처리·학습 전략·모델 아키텍처**를 단계적으로 최적화하여 성능(리더보드 SSIM)을 향상시키는 것을 목표로 했습니다.  
+본 프로젝트는 **가속 MRI 재구성(Accelerated MRI Reconstruction)** 문제를 대상으로, 제한된 자원(GTX1080 VRAM 8gb) 환경에서 **데이터 처리·학습 전략·모델 아키텍처**를 단계적으로 최적화하여 성능(리더보드 SSIM)을 향상시키는 것을 목표로 했습니다.  
 프로젝트 전반은 아래 3가지 방향성으로 진행했습니다.
 
 - 🛠 **Efficient Development**: 모듈화/파라미터화된 코드로 실험 전환 비용 최소화 + VRAM 최적화  
@@ -32,10 +32,9 @@ classes: "text-white"
 
 ---
 
-## 기간 / 인원 / 역할
+## 기간 / 인원
 - **기간**: 2025 (FastMRI Challenge 준비 및 실험 진행)
 - **인원**: 2인 팀 (Team GeekSeek)
-- **역할(기여 중심 정리)**  
   - 데이터 처리(증강, 마스크 전략) 설계 및 실험  
   - 학습 전략(스케줄러/손실/안정화) 수립 및 튜닝  
   - VarNet/FI-VarNet 기반 아키텍처 탐색, attention 모듈 비교(채택/폐기 판단)  
@@ -64,7 +63,10 @@ classes: "text-white"
 # 1. Data Processing (시도 → 관찰 → 결정)
 
 ## 1) MR Augmentation (이미지 증강)
+<img src="../images/2025-10-03-2025_fastMRI_challenge/image-20251224192913056.png" alt="image-20251224192913056" style="zoom:50%;" />
+
 **목적**
+
 - 모델 일반화 성능 향상
 
 **방법**
@@ -72,6 +74,8 @@ classes: "text-white"
 - MR 이미지의 노이즈 특성을 보존하기 위한 **augmentation interpolation** 고려
 
 > 다양한 기하학적 변환(Flip/Shear/Scale/Rotation 등) 기반으로 증강을 적용했습니다.
+>
+> ![image-20251224192937757](../images/2025-10-03-2025_fastMRI_challenge/image-20251224192937757.png)
 
 ---
 
@@ -83,6 +87,8 @@ classes: "text-white"
 - Facebook FastMRI repo의 mask augmentation 함수 활용
 - augmentation scheduling(Linear, delay 등) 적용
 - 가능한 모든 mask function을 학습에 포함
+
+![image-20251224193002854](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193002854.png)
 
 ---
 
@@ -96,7 +102,12 @@ classes: "text-white"
 - K-space center crop(384×384) 후 IFFT  
   - 기하 왜곡(Geometric distortion) 관찰, **SSIM ~0.344** 수준까지 하락
 
+![image-20251224193024986](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193024986.png)
+
+![image-20251224193047588](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193047588.png)
+
 ### Ver2: R-block 직전만 local crop (부분 성공 → 최종 미채택)
+
 - Brain: 외곽이 배경에 가까워 영향 적음  
 - Knee: 외곽 구조가 중요해 aliasing/성능 저하 발생
 
@@ -105,10 +116,15 @@ classes: "text-white"
 - 학습 시간: **10분/epoch → 8분/epoch**
 - 단, Knee 성능 하락으로 **Final training에서는 미채택**
 
+![image-20251224193132466](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193132466.png)
+
 ---
 
 ## 4) Coil Compression (SCC/GCC 비교)
+![image-20251224193146083](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193146083.png)
+
 **목적**
+
 - VRAM 사용량 저감
 
 **시도**
@@ -119,12 +135,18 @@ classes: "text-white"
 - GCC가 SCC보다 일관되게 우수했으나, 그래도 열화 존재
 
 **결론**
+
 - **coil compression은 최종적으로 사용하지 않음**
+
+![image-20251224193205857](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193205857.png)
 
 ---
 
 ## 5) Mask Duplicate (리더보드 스타일 정렬 전략) ⭐
+<img src="../images/2025-10-03-2025_fastMRI_challenge/image-20251224193228031.png" alt="image-20251224193228031" style="zoom:80%;" />
+
 **목적**
+
 - 학습을 리더보드 평가 마스크 스타일에 더 맞춤
 - 같은 k-space가 **acc4/acc8** 둘 다로 노출되게 하여 마스크 다양성/안정성 향상
 
@@ -150,10 +172,14 @@ classes: "text-white"
 ---
 
 ## 2) Loss Function (리더보드 정렬)
+![image-20251224193307780](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193307780.png)
+
 **결정**
+
 - **SSIM + L1 (Masked Loss)**
 
 **왜 Masked Loss인가?**
+
 - 리더보드 평가 ROI와 학습 목표를 정렬
 - 배경 노이즈 영향 감소, 의미 있는 해부학 구조에 집중
 
@@ -174,7 +200,10 @@ classes: "text-white"
 # 3. Model Architecture Design
 
 ## 1) Baseline: E2E-VarNet 튜닝
+![image-20251224193324767](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193324767.png)
+
 **목표**
+
 - 공식 baseline에서 학습/하이퍼파라미터 튜닝으로 성능 최대화
 
 **접근**
@@ -194,13 +223,20 @@ classes: "text-white"
 ---
 
 ## 3) 실험적 모델 (자원 제약으로 미채택)
+![image-20251224193348942](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193348942.png)
+
 - dHUMUS-net: 글로벌 의존성 기대 vs VRAM/속도 부담 큼 → 미채택
+
+![image-20251224193358745](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193358745.png)
+
 - MambaRecon: SSM 기반 글로벌 receptive field 기대 vs GTX1080에서 커스텀 커널/VRAM 이슈 → 미채택(최대 cascades≈2 수준)
 
 ---
 
 ## 4) FI-VarNet 변형 및 Attention 모듈 탐색 ⭐
 ### (1) FI-VarNet 파라미터 튜닝
+![image-20251224193410688](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193410688.png)
+
 - Encoder/Decoder weight sharing: 공유가 일관되게 더 좋음
 - Feature/Image cascade 조합 + Block-wise attention 실험
   - (15+3, 12, 24, 8)에서 **SSIM 0.97370**으로 채택
@@ -212,7 +248,11 @@ classes: "text-white"
   - mask에서 PSF를 유도하고 peak를 deformable attention anchor로 활용하는 “physics-aware” 아이디어를 제안/실험
 - 단, 오프셋 학습으로 수렴이 느리고 VRAM/시간 부담이 커 **20일 예산 내 불가 → 미채택**
 
+![image-20251224193450571](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193450571.png)
+
 ### (3) LSKA (Large Separable Kernel Attention) ✅ 최종 채택
+![image-20251224193505700](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193505700.png)
+
 - LKA의 O(k²) 비용 문제를 1×k + k×1 separable로 바꿔 O(2k)로 효율화
 - 성능/파라미터/속도 균형이 좋아 최종 채택
 - **Leaderboard SSIM = 0.9744 (50 epochs)**
@@ -240,6 +280,9 @@ classes: "text-white"
 # 5. 최종 결과
 - VarNet 튜닝 및 FI-VarNet 변형, attention 모듈(LSKA) 채택을 통해
   - **Leaderboard SSIM을 0.9744(50 epochs)까지 향상**시켰습니다.
+  - 최종순위 7등
+
+![image-20251224193630320](../images/2025-10-03-2025_fastMRI_challenge/image-20251224193630320.png)
 
 ---
 
@@ -252,6 +295,7 @@ classes: "text-white"
 ---
 
 ## 참고 자료
-- 프로젝트 발표자료(PDF): /images 또는 /assets에 캡처 이미지를 저장해 본문에 삽입하면 가독성이 크게 좋아집니다.
-  - 예) MR augmentation 결과, center crop 비교, coil compression 비교 그래프, LSKA 설명 슬라이드 등
+
+> {% include video id="xVQO-zsEdfQ" provider="youtube" %}
+
 ---
