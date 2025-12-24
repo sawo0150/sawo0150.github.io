@@ -13,8 +13,8 @@ header:
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "Photo credit: [Unsplash](https://unsplash.com)"
   actions:
-    - label: "GitHub"
-      url: "https://github.com/sawo0150/"
+    - label: "GitHub repo"
+      url: "https://github.com/sawo0150/2025_GeekSeek"
 classes: "text-white"
 ---
 
