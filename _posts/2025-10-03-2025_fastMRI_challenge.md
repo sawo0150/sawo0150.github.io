@@ -1,273 +1,257 @@
 ---
 layout: single
-title: "과일 수확 로봇 (Berry-Good Bot) - 2025 공과대학 창의설계축전"
-tags: [Projects, Robotics, ROS2, Jetson, Visual-Servoing, YOLO, Agriculture]
-excerpt: "저비용(약 115만원) ROS2 기반 모듈형 과일 수확 로봇: YOLO-Pose 인식 + Hybrid Visual Servo + Behavior Tree로 수확 자동화"
+title: "2025 SNU FastMRI Challenge - GeekSeek"
+# categories: Projects
+tags: [Projects, MedicalImaging, MRI, DeepLearning, PyTorch, Reconstruction]
+excerpt: "FastMRI 가속 재구성 챌린지: 데이터/학습/아키텍처를 체계적으로 탐색해 리더보드 SSIM을 끌어올린 기록"
 author_profile: true
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
-  overlay_filter: rgba(0, 0, 0, 0.55)
-  caption: "Berry-Good Bot | Fruit Harvesting Robot"
+  overlay_filter: rgba(0, 0, 0, 0.5)
+  caption: "Photo credit: [Unsplash](https://unsplash.com)"
   actions:
-    - label: "GitHub (ROS2 System)"
-      url: "https://github.com/sawo0150/berry-good-bot"
+    - label: "GitHub"
+      url: "https://github.com/sawo0150/"
 classes: "text-white"
 ---
 
-# 팀 프로젝트 - 과일 수확 로봇 (Berry-Good Bot) 🍓🤖
+# 팀 프로젝트 - 2025 SNU FastMRI Challenge (GeekSeek) 🧠🩻
 
 ---
 
-## 한 줄 소개
-**국내 소규모 비닐하우스 환경을 목표로, 약 115만원 수준의 저비용 하드웨어 + ROS2 모듈형 아키텍처 + YOLO-Pose 인식 + Hybrid Visual Servoing(IBVS+PBVS) + Behavior Tree로 ‘반복 가능한 수확 루프’를 구현한 과일 수확 로봇**입니다.  
+## 소개
+본 프로젝트는 **가속 MRI 재구성(Accelerated MRI Reconstruction)** 문제를 대상으로, 제한된 자원(예: VRAM) 환경에서 **데이터 처리·학습 전략·모델 아키텍처**를 단계적으로 최적화하여 성능(리더보드 SSIM)을 향상시키는 것을 목표로 했습니다.  
+프로젝트 전반은 아래 3가지 방향성으로 진행했습니다.
 
-  ![과일수확로봇-대표이미지](../images/2025-10-02-berry-good-bot/과일수확로봇-대표이미지.png)
-
-> {% include video id="eAwnoZv1Vwg" provider="youtube" %}
-
----
-
-## 소개 (배경 / 문제 정의)
-농업 현장은 구조적 인력 부족이 심각하지만, 기존 수확 로봇은 **대규모 농장 중심 + 고가 장비(수천만 원대 이상)** 위주라 국내 소규모 비닐하우스에 적용이 어렵고 도입 부담이 큽니다.  
-본 프로젝트는 **“작고 저렴하지만 실제로 동작하는 수확 자동화”**를 목표로, 아래를 핵심 방향으로 설계했습니다.
-
-- **저비용(약 100만 원대) + 직접 제작 가능한 구조**
-- **ROS2 기반 모듈형 아키텍처(확장/유지보수 용이)**
-- **인식(Perception) ↔ 제어(Control) ↔ 로직(Behavior) 분리**
-- **근접 구간에서도 안정적인 수확을 위한 Hybrid Visual Servoing**
+- 🛠 **Efficient Development**: 모듈화/파라미터화된 코드로 실험 전환 비용 최소화 + VRAM 최적화  
+- 📊 **Full Data Exploration**: 데이터/마스크 다양성을 최대한 학습에 반영  
+- 🧠 **Model Design**: 표현력 강화 & receptive field 확장(효율적인 attention 모듈 탐색)
 
 ---
 
 ## 기간 / 인원 / 역할
-- **기간**: 2025.06.25 ~ 2025.08.22
-- **팀**: 3인 (팀명: **딸기가 좋아 / Berry-Good Bot**)
-- **내 역할 (박상원)**: **시스템 통합 및 제어 소프트웨어 개발(ROS2, Kinematics, Visual Servoing, Behavior Tree, Serial bridge)**  
-  - HW 제작/조립(팀원), YOLO-Pose 모델 개발(팀원)과 연동하여 “수확 루프”가 실제로 돌아가도록 통합
+- **기간**: 2025 (FastMRI Challenge 준비 및 실험 진행)
+- **인원**: 2인 팀 (Team GeekSeek)
+- **역할(기여 중심 정리)**  
+  - 데이터 처리(증강, 마스크 전략) 설계 및 실험  
+  - 학습 전략(스케줄러/손실/안정화) 수립 및 튜닝  
+  - VarNet/FI-VarNet 기반 아키텍처 탐색, attention 모듈 비교(채택/폐기 판단)  
+  - Hydra 기반 config-driven 실험 파이프라인 + 재현성/메모리 안정성 확보
+
+> 팀원: 기계공학부 박상원, 자유전공학부 신정민
 
 ---
 
 ## Tech Stack
-### Language / Framework
-- **C++ / Python 혼합**
-- **ROS2** (모듈형 노드 구성)
-- **Behavior Tree** (수확 시퀀스 및 예외 처리)
-
-### Compute / OS
-- **Jetson Orin Nano 8GB (JetPack 6.2)**
-- **Ubuntu 22.04**
-
-### Perception
-- **YOLO-Pose (Ultralytics YOLO11 계열)**  
-- 과일(딸기/사과/오렌지) 데이터 약 **2,500장 규모**로 학습  
-- 특징점(키포인트) 3종: **Bottom / Top / Pick(줄기점)**
-
-### Control
-- **Kinematics / Jacobian 기반 Servo**
-- **Hybrid Visual Servoing (IBVS + PBVS)**
+- **Language**: Python
+- **Framework**: PyTorch (FastMRI/VarNet 계열)
+- **Experiment**: Hydra(YAML config), sweep 자동화
+- **Training Stability/VRAM**: gradient checkpointing/accumulation/clipping, 메모리 hygiene
 
 ---
 
-## Hardware 구성
-### 로봇 구조 요약
-- **5-DOF 로봇 팔 + 엔드이펙터 + 4륜 알루미늄 프로파일 차체**
-- 수직축(Linear): **NEMA23 + 볼스크류**, 수직 스트로크 약 **56cm**
-- 평면 관절(3-DOF): **NEMA17 스텝모터 + 벨트/풀리 감속**
-  - 감속비: 1/2/3번 조인트 각각 **4:1 / 5:1 / 5:1**
-  - 가동범위 예: 145° / 280° / 180°
-- **중력 보상(약 2kg 추)**로 1번 조인트 벤딩 하중 완화
-- 엔드이펙터:
-  - **MG996R 서보모터** 기반
-  - **파지 + 줄기 절단을 동시에 수행**하도록 칼날/스펀지 조합 구조
-
-### 카메라 구성 (EEF 장착)
-- 상단: **RGB-D (Intel RealSense D435i)**
-- 하단: **저가형 RGB 카메라(근접 시야 확보용)**
+## 문제 정의 & 핵심 도전 과제
+- 데이터 특성(도메인/가속도/마스크 패턴)이 혼합된 상황에서,
+  - **일반화(Generalization)**를 높이고,
+  - **리더보드 평가 방식과 학습 목표를 정렬**하며,
+  - **제한된 GPU 자원으로도 빠르게 실험을 반복**해 성능을 끌어올리는 것이 핵심 과제였습니다.
 
 ---
 
-## 프로젝트 결과(핵심 성과)
-- **저비용(총 약 1,150,000원) 구조**로 실제 동작 가능한 수확 로봇 구현
-- **YOLO-Pose로 과일 종류 분류 + 키포인트(줄기) 추정**
-- **근접 영역에서 RGB-D 한계를 우회**하기 위해,
-  - 2카메라 기하(레이-레이) 기반으로 **줄기점 3D 추정**을 구성
-- **Ready → Rough Approach → Fine Approach → Pick & Place**  
-  수확 루프를 **Behavior Tree로 반복 가능하게 구현**
-- 과일 종류에 따라 **바구니 분류(Pick & Place)**까지 수행
+# 1. Data Processing (시도 → 관찰 → 결정)
+
+## 1) MR Augmentation (이미지 증강)
+**목적**
+- 모델 일반화 성능 향상
+
+**방법**
+- 증강 강도를 epoch/val_loss에 따라 스케줄링(선형/지수 등)
+- MR 이미지의 노이즈 특성을 보존하기 위한 **augmentation interpolation** 고려
+
+> 다양한 기하학적 변환(Flip/Shear/Scale/Rotation 등) 기반으로 증강을 적용했습니다.
 
 ---
 
-## 시스템 아키텍처 (모듈화 포인트)
-본 프로젝트는 확장성과 디버깅 효율을 위해 시스템을 4단으로 모듈화했습니다.
+## 2) Mask Augmentation (샘플링 마스크 증강)
+**배경**
+- Private dataset에서는 다양한 마스크 패턴이 등장할 가능성이 높음
 
-1. **Serial (Jetson ↔ Arduino)**
-2. **Kinematics (NamedPose / IK / Jacobian Servo Interface)**
-3. **Perception (YOLO / Calibration / 3D Estimation)**
-4. **Behavior Tree (수확 루프 및 Fail-safe)**
-
-> “상위 노드가 하위 노드를 체계적으로 관리”하도록 구조화하여, 기능 교체/추가가 쉬운 형태로 만들었습니다.
-
----
-
-## 1) Serial Bridge: Jetson ↔ Arduino 통신 & 하드웨어 구동
-로봇 하드웨어는 **Arduino UNO + MEGA**로 구동했습니다.
-
-- UNO: Linear joint(스텝) + wrist joint(서보) + gripper(서보)
-- MEGA: 평면 3개 관절(J1,J2,J3 스텝)
-- 스텝모터는 절대 엔코더가 아니라 “**스텝 누적(상대 위치)**” 기반이라,
-  - 매 구동마다 **Homing(리미트 스위치)**로 기준점을 잡도록 설계
-- 큰 링크/무게로 인해 급가속 시 흔들림이 커서,
-  - **최대 각가속도/각속도 제한(가감속 프로파일)**을 코드에 내장해 진동 저감
-- Jetson에서 pyserial로 목표 조인트를 전송하고, Arduino에서 현재 조인트 상태를 피드백
-
-> 개발 이슈: 일부 MEGA 호환 보드 드라이버 문제로, Jetson 커널 드라이버를 빌드해 적용한 경험도 있었습니다(현장 통합 난이도 높았던 포인트).
-
-- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_serial_bridge)
+**방법**
+- Facebook FastMRI repo의 mask augmentation 함수 활용
+- augmentation scheduling(Linear, delay 등) 적용
+- 가능한 모든 mask function을 학습에 포함
 
 ---
 
-## 2) URDF + RViz2: “로봇 상태”와 “외부 환경”을 한 화면에서 디버깅
-센서/인식 결과와 실제 로봇 관절 상태를 숫자만 보고 디버깅하는 것은 거의 불가능했습니다.  
-그래서 CAD 기반으로 URDF를 구성하고 RViz2에서 아래를 동시에 확인하도록 했습니다.
+## 3) Center Crop (차원 축소 시도)
+**목적**
+- k-space 차원을 줄여 VRAM/학습 속도 최적화
 
-- 목표 joint topic 기반으로 **URDF 로봇 모델 동기화 시각화**
-- TF 트리 기준으로 외부 환경(과일 위치 등)과 로봇을 함께 표시
+### Ver1: 입력 전 crop (문제 발생)
+- Image-space center crop(384×384) + zero-fill  
+  - ROI 기준 loss → GT 일관성 약화, **SSIM ~0.731** 수준 관찰
+- K-space center crop(384×384) 후 IFFT  
+  - 기하 왜곡(Geometric distortion) 관찰, **SSIM ~0.344** 수준까지 하락
 
-또한 Arduino 관절 각도 컨벤션과 URDF 컨벤션이 달라,
-- yaml 파라미터를 조정하며 **선형 매핑(m, n) 형태로 컨벤션 보정**을 수행했습니다.
-- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/robot/berrybot_description)
-- ![image-20251224182233504](../images/2025-10-02-berry-good-bot/image-20251224182233504.png)
+### Ver2: R-block 직전만 local crop (부분 성공 → 최종 미채택)
+- Brain: 외곽이 배경에 가까워 영향 적음  
+- Knee: 외곽 구조가 중요해 aliasing/성능 저하 발생
 
----
-
-## 3) Kinematics Control: 3가지 “제어 인터페이스”를 Action Server로 제공
-MoveIt2를 고려했지만(빌드/리소스 부담 + 자유도/환경 제약), 본 프로젝트에서는 **가벼운 인터페이스를 직접 구성**했습니다.
-
-### (1) NamedPose
-- 미리 정의한 자세(ready/basket/home 등)를 yaml에 저장
-- Action으로 이름을 보내면, 현재 상태에서 목표 자세까지 완만히 이동
-
-### (2) IK 기반 목표 포즈 이동 (IKPy)
-- URDF 기반으로 IK 연산을 구성
-- 위치(x,y,z)는 잘 맞지만, 자세(orientation)는 해가 불안정한 경우가 있어
-  - 최종 수확 인터페이스로는 제한적으로 사용
-
-### (3) ServoTwist (Jacobian Servoing) ✅ 핵심
-- EEF의 twist(속도)를 입력으로 받아,
-  - Jacobian 기반으로 joint velocity를 계산 → joint state에 반영
-- 미세 서보잉이 가능해져 “근접 수확 단계”에서 가장 유효했습니다.
-- 구현에 roboticstoolbox 등을 사용해 URDF 기반 Jacobian을 구성
-
-- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_kinematics_control/berry_kinematics_control)
+**측정된 효과**
+- VRAM: **2973MB → 1443MB**
+- 학습 시간: **10분/epoch → 8분/epoch**
+- 단, Knee 성능 하락으로 **Final training에서는 미채택**
 
 ---
 
-## 4) Perception: YOLO-Pose + Calibration + (근접 구간) 3D 줄기점 추정
-### YOLO-Pose 설계
-YOLO는 아래를 동시에 추정하도록 설계했습니다.
-- Bounding Box (2D 위치)
-- Classification (딸기/사과/오렌지)
-- Keypoints 3개 (Bottom / Top / Pick=줄기점)
+## 4) Coil Compression (SCC/GCC 비교)
+**목적**
+- VRAM 사용량 저감
 
-학습은 RTX 4070 Ti SUPER 환경에서 수행했고, 예측 결과가 라벨과 매우 유사한 수준까지 맞도록 튜닝했습니다.
+**시도**
+- SCC(전역 SVD) vs GCC(국소 SVD)
 
-- 데이터셋: [Link](https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan)  
-- 모델/학습 파라미터: [Link](https://github.com/eric-mjk/berrybot-perception)
+**관찰**
+- SSIM 관점에서 “압축 자체”가 GT 대비 유의미한 열화를 유발
+- GCC가 SCC보다 일관되게 우수했으나, 그래도 열화 존재
 
-### Rough Approach용 3D 위치 추정 (RGB-D 기반)
-- RGB-D 카메라에서 confidence 최고 bbox 선택
-- bbox 내부 depth에 대해 outlier 제거 후 **상위 25% 깊이 평균** 등으로 강건화
-- base_link 기준 접근점(과일점에서 일정 거리 offset)과 EEF 포즈를 반환
-- ![image-20251224182311898](../images/2025-10-02-berry-good-bot/image-20251224182311898.png)
-
-### Fine Approach용 3D 줄기점 추정 (RGB-D 한계 우회)
-근접(약 20cm 이내)에서는 RGB-D가 값이 불안정/누락되는 문제가 있어, 다른 전략이 필요했습니다.
-
-- 하단 RGB 카메라는 줄기점이 잘 안 보이거나 conf가 떨어지는 문제가 있어,
-  - **Gripper ROI 제한**
-  - **HSV 기반 딸기 색 segmentation + bbox 재추정**
-  - YOLO bbox와의 IoU를 결합한 score로 결과 필터링  
-    (예: score = conf + IoU 형태)
-- 최종적으로,  
-  - 상단 RGB-D 카메라의 줄기 keypoint ray와  
-  - 하단 RGB 카메라의 줄기 keypoint ray를 매칭해  
-  **두 ray의 최근접점(기하 기반)으로 줄기점 3D를 추정**  
-  → “가까워도 줄기점 3D를 반환”하도록 구성했습니다.
-- 코드: [Link](https://github.com/sawo0150/berry-good-bot/tree/main/berry_perception)
-- ![image-20251224182333120](../images/2025-10-02-berry-good-bot/image-20251224182333120.png)
-- ![image-20251224182405059](../images/2025-10-02-berry-good-bot/image-20251224182405059.png)
+**결론**
+- **coil compression은 최종적으로 사용하지 않음**
 
 ---
 
-## 5) Hybrid Visual Servoing: IBVS + PBVS 결합으로 근접 수확 안정화
-본 프로젝트의 제어는 크게 두 단계입니다.
+## 5) Mask Duplicate (리더보드 스타일 정렬 전략) ⭐
+**목적**
+- 학습을 리더보드 평가 마스크 스타일에 더 맞춤
+- 같은 k-space가 **acc4/acc8** 둘 다로 노출되게 하여 마스크 다양성/안정성 향상
 
-### Rough Approach (거친 접근, PBVS 중심)
-- Perception에서 받은 “접근점”으로 먼저 이동
-- 1회로 끝내지 않고,
-  - 예: **5cm 접근 → 재인식 → 1cm 접근**처럼 단계적 접근으로 안정성 확보
+**관찰**
+- dataset 내 acc4 vs acc8는 “마스크만 다른” 것이 아니라 k-space 자체도 달라 baseline 방식만으로는 불안정
 
-### Fine Approach (정밀 접근, Hybrid)
-- **IBVS**: 이미지 평면 상 특징(예: ROI 중심 x와 딸기 bbox 중심 x의 차이)을 오차로 두고 속도를 생성  
-  - 가까워질수록 포즈 추정 없이도 강건하게 정렬하기 유리
-- **PBVS**: 추정된 3D 줄기점과 그리퍼 기준점의 차이로 3D 속도 생성  
-  - 목표점(줄기)으로의 수렴에 직관적
+**방법**
+- 도메인/폭/가속도 기준으로 **고정 mask bank(19 patterns)** 구성
+- 모든 k-space에 대해 **(acc4, acc8) 2개 샘플**을 고정 생성 → epoch당 iteration **×2**
 
-최종적으로 두 속도를 합성해 ServoTwist로 구동했습니다.
-- `V = V_IBVS + V_PBVS`
-
-  ​    ![그림입니다.  원본 그림의 이름: CLP0000590c441b.bmp  원본 그림의 크기: 가로 2240pixel, 세로 734pixel](../images/2025-10-02-berry-good-bot/tmpA543.jpg)  ![그림입니다.  원본 그림의 이름: CLP000064100004.bmp  원본 그림의 크기: 가로 2234pixel, 세로 578pixel](../images/2025-10-02-berry-good-bot/tmp2261.jpg)  
+**기대 효과**
+- evaluation mask에 대한 견고성
+- validation 안정성 향상
 
 ---
 
-## 6) Behavior Tree: 수확 루프 & 예외 처리 로직
-인식/제어가 동작해도, “언제 무엇을 실행하고 실패 시 어떻게 복구할지”가 없으면 실제 수확은 안정적으로 돌아가지 않습니다.  
-그래서 전체 수확 과정을 **Behavior Tree(BT)**로 구성해 반복 가능하게 만들었습니다.
+# 2. Training Strategy
 
-- 전체 루프(대표 구조):
-  - **Ready → Rough Approach → Fine Approach → Pick & Place** (반복)
-- 각 단계는 모두 Action Server 형태라,
-  - BT 노드에서 래핑해 호출하는 구조로 모듈성이 좋았습니다.
-- 실행은 hydra 기반 설정으로 파라미터/BT xml/node 구성을 쉽게 바꾸도록 했습니다.
-- BT 예시(XML): [Link](https://github.com/sawo0150/berry-good-bot/blob/main/behavior_trees/pick_with_loops.xml)
-- ![image-20251224182436487](../images/2025-10-02-berry-good-bot/image-20251224182436487.png)
+## 1) LR Scheduler & Optimizer
+- **ExponentialLR**
+- **NAdam**
 
 ---
 
-## 비용 분석 / 팀 역할 분담
-### 비용
-- 기계부품(모터, 필라멘트, 베어링): 50만원
-- 전자제품(젯슨, RGB, RGB-D 카메라): 60만원
-- 기타(과일 모형, 필라멘트): 5만원  
-→ **합계: 115만원 **
+## 2) Loss Function (리더보드 정렬)
+**결정**
+- **SSIM + L1 (Masked Loss)**
 
-### 팀 역할
-- 권태영: 로봇 하드웨어 설계 및 제작
-- 김민준: YOLO-Pose 딥러닝 모델 개발
-- 박상원(나): 시스템 통합 및 제어 소프트웨어 개발
+**왜 Masked Loss인가?**
+- 리더보드 평가 ROI와 학습 목표를 정렬
+- 배경 노이즈 영향 감소, 의미 있는 해부학 구조에 집중
 
 ---
 
-## Links
-- **ROS2 통합/제어 코드(GitHub)**: [https://github.com/sawo0150/berry-good-bot](https://github.com/sawo0150/berry-good-bot)
-- **YOLO 데이터셋(Roboflow)**: [https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan](https://universe.roboflow.com/berrybot-xzypx/fruit-pose-fdtan)
-- **YOLO 모델/학습 파라미터**: [https://github.com/eric-mjk/berrybot-perception](https://github.com/eric-mjk/berrybot-perception)
+## 3) VRAM 최적화 & 안정화
+**채택**
+- Gradient Checkpointing: backward 시 재계산으로 VRAM 절감(연산 오버헤드 trade-off)
+- Gradient Accumulation: 제한 VRAM에서 큰 batch 효과
+- Gradient Clipping: exploding gradient 방지, 학습 안정성 개선
+
+**배제(이유)**
+- Mixed Precision: GTX1080/Pascal 환경에서 오히려 느리고 안정성 이득 미미
+- DeepSpeed(CPU offload): VRAM 절감은 크지 않고 CPU↔GPU 전송이 병목
 
 ---
 
-## Images & Videos
+# 3. Model Architecture Design
 
-> ![image-20251224184051347](../images/2025-10-02-berry-good-bot/image-20251224184051347.png)
+## 1) Baseline: E2E-VarNet 튜닝
+**목표**
+- 공식 baseline에서 학습/하이퍼파라미터 튜닝으로 성능 최대화
 
-> ![image-20251224184307131](../images/2025-10-02-berry-good-bot/image-20251224184307131.png)
+**접근**
+- R + DC cascades, Sensitivity Map Estimation(SME) 기반 E2E-VarNet
+- 탐색 대상: cascades, chans, sens_chans
 
+**Best config**
+- **(20, 18, 8)**
+- **Leaderboard SSIM = 0.9734 (50 epochs)**
 
-> {% include video id="eAwnoZv1Vwg" provider="youtube" %}
+---
 
-> {% include video id="T6ebTg6ipFc" provider="youtube" %}
+## 2) MoE 전략 (미채택)
+- 도메인/가속도 조건부 라우팅을 시도했으나
+  - 성능이 낮고 수렴이 느려 **미채택**
 
-> {% include video id="DdS0xmefjrk" provider="youtube" %}
+---
 
+## 3) 실험적 모델 (자원 제약으로 미채택)
+- dHUMUS-net: 글로벌 의존성 기대 vs VRAM/속도 부담 큼 → 미채택
+- MambaRecon: SSM 기반 글로벌 receptive field 기대 vs GTX1080에서 커스텀 커널/VRAM 이슈 → 미채택(최대 cascades≈2 수준)
+
+---
+
+## 4) FI-VarNet 변형 및 Attention 모듈 탐색 ⭐
+### (1) FI-VarNet 파라미터 튜닝
+- Encoder/Decoder weight sharing: 공유가 일관되게 더 좋음
+- Feature/Image cascade 조합 + Block-wise attention 실험
+  - (15+3, 12, 24, 8)에서 **SSIM 0.97370**으로 채택
+
+> 표기: (cascades_feature + cascades_image, feature_dim, unet_chans, sens_chans)
+
+### (2) PSF-driven Deformable Attention (아이디어는 좋았으나 미채택)
+- mixed acceleration(4/8) + non-equispaced mask 환경에서 aliasing 패턴이 달라지는 문제를 보완하기 위해,
+  - mask에서 PSF를 유도하고 peak를 deformable attention anchor로 활용하는 “physics-aware” 아이디어를 제안/실험
+- 단, 오프셋 학습으로 수렴이 느리고 VRAM/시간 부담이 커 **20일 예산 내 불가 → 미채택**
+
+### (3) LSKA (Large Separable Kernel Attention) ✅ 최종 채택
+- LKA의 O(k²) 비용 문제를 1×k + k×1 separable로 바꿔 O(2k)로 효율화
+- 성능/파라미터/속도 균형이 좋아 최종 채택
+- **Leaderboard SSIM = 0.9744 (50 epochs)**
+
+---
+
+# 4. Development Details (실험 생산성)
+
+## 1) 개발 철학
+- **Modularity & Low Coupling**: 모듈 독립성 확보(기능 on/off 안전)
+- **Config-Driven Training (Hydra)**: YAML 단일 소스, override로 실험 스위칭
+- **Reproducibility by Design**: checkpoint에 모델/옵티마이저/args 저장 → 재개/재현 용이
+- **Memory Hygiene**: 큰 텐서의 lifetime 관리 + CUDA fragmentation 방지(장시간 학습 안정)
+
+---
+
+## 2) 시각화 & 튜닝 툴링
+- Metric accumulator: acc(4/8) × {Brain, Knee}로 train/val loss & SSIM 추적
+- Error maps: GT/Reconstruction/Error로 실패 모드 탐지
+- Effective receptive field: k-space gradient map으로 receptive field 성장 비교
+- Sweeps: 자동화 실험으로 비교 일관성 유지
+
+---
+
+# 5. 최종 결과
+- VarNet 튜닝 및 FI-VarNet 변형, attention 모듈(LSKA) 채택을 통해
+  - **Leaderboard SSIM을 0.9744(50 epochs)까지 향상**시켰습니다.
+
+---
+
+# 6. 회고 (배운 점)
+- “좋아 보이는 최신 아이디어”라도 **자원 제약(VRAM/속도)과 수렴 특성**을 함께 봐야 실제 프로젝트에서 성과로 이어짐
+- 리더보드 성능을 올리려면 모델만이 아니라,
+  - **평가 방식과의 정렬(ROI/mask), 데이터 노출 전략(mask duplicate), 실험 생산성(Hydra/sweeps)**이 같이 최적화되어야 함
+- Knee처럼 외곽 구조가 중요한 도메인에서는 단순한 crop 최적화가 **치명적 성능 저하**로 이어질 수 있어 “도메인별 검증”이 필수
+
+---
+
+## 참고 자료
+- 프로젝트 발표자료(PDF): /images 또는 /assets에 캡처 이미지를 저장해 본문에 삽입하면 가독성이 크게 좋아집니다.
+  - 예) MR augmentation 결과, center crop 비교, coil compression 비교 그래프, LSKA 설명 슬라이드 등
 ---
