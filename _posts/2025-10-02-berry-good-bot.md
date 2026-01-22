@@ -44,7 +44,7 @@ classes: "text-white"
 ## 기간 / 인원 / 역할
 - **기간**: 2025.06.25 ~ 2025.08.22
 - **팀**: 3인 (팀명: **딸기가 좋아 / Berry-Good Bot**)
-- **내 역할 (박상원)**: **시스템 통합 및 제어 소프트웨어 개발(ROS2, Kinematics, Visual Servoing, Behavior Tree, Serial bridge)**  
+- **역할 (박상원)**: **시스템 통합 및 제어 소프트웨어 개발(ROS2, Kinematics, Visual Servoing, Behavior Tree, Serial bridge)**  
   - HW 제작/조립(팀원), YOLO-Pose 모델 개발(팀원)과 연동하여 “수확 루프”가 실제로 돌아가도록 통합
 
 ---

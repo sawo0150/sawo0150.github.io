@@ -20,33 +20,32 @@ classes: "text-white"  # 텍스트 색상을 흰색으로 설정 (필요시 다�
 
 ---
 
-## 지원자 소개
+## 본인 소개
 
 - **이름**: 박상원
 - **E-mail**: swpants05@snu.ac.kr
-- **Address**: 서울특별시 노원구 하계동
 
 ### About Me
 - **학력**  
-  - 과학영재학교 대전과학고등학교 졸업 (2024.01)
+  - 대전과학고등학교 졸업 (2024.01)
   - 서울대학교 기계공학부 입학 (2024.03.01)
 
 ### Experience
 - **제 1회 서울대학교 자율주행 SW 고도화 경진대회 금상 (2위) 수상**  
   - 2024.06 ~ 2024.07
-- **2024 SNU FastMRI Challenge**  
-  - Leaderboard 최종순위 : 10위 /144 팀 (수상 없음)  
-  - 2024.06 ~ 2024.08
+- **2025 SNU FastMRI Challenge**  
+  - Leaderboard 최종순위 : 7위 /70 팀 (수상 없음)  
+  - 2025.06 ~ 2025.08
+- **2025 공과대학 창의설계축전 (동상 수상)**  
+  - 2025.06 ~ 2025.08
 
 ### Channel
 - **GitHub**  
   - [https://github.com/sawo0150/](https://github.com/sawo0150/)
-- **Instagram** (개발 경험 정리용)  
-  - [https://www.instagram.com/suu1e805/](https://www.instagram.com/suu1e805/)
 
 ### Skills
 - **Language**: Python, C/C++
-- **Tools**: Pytorch, TensorFlow, ROS
+- **Tools**: Pytorch, ROS
 
 ---
 
@@ -58,11 +57,22 @@ classes: "text-white"  # 텍스트 색상을 흰색으로 설정 (필요시 다�
 - **Project GitHub**: [https://github.com/sawo0150/2024Summer_InnoDriver](https://github.com/sawo0150/2024Summer_InnoDriver)
 - [상세설명 페이지](../innoDriver_SNU2024FMTC_contest_portfolio){: .btn .btn--success .btn--x-large}
 
-### 2024 SNU FastMRI Challenge
+### 2025 SNU FastMRI Challenge
 - **종류**: MRI reconstruction Model 개발
 - **내용**: undersampled K-space Data를 바탕으로 고해상도 MRI 이미지를 얻는 모델 학습 (GPU VRAM 8GB 제한에 따른 모델 경량화)
-- **Project GitHub**: [https://github.com/sawo0150/FastMRI_sungsimdang](https://github.com/sawo0150/FastMRI_sungsimdang)
-- [상세설명 페이지](../2024fastMRI_challenge_portfolio){: .btn .btn--success .btn--x-large}
+- **Project GitHub**: [https://github.com/sawo0150/2025_GeekSeek](https://github.com/sawo0150/2025_GeekSeek)
+- [상세설명 페이지](../2025_fastMRI_challenge){: .btn .btn--success .btn--x-large}
+
+### 과일 수확 로봇 (Berry-Good Bot)
+- **종류**: ROS2 기반 자율 과일 수확 로봇 (2025 공과대학 창의설계축전 동상)
+- **내용**: 100만원대 저비용 하드웨어에 YOLO-Pose 인식과 Hybrid Visual Servoing(IBVS+PBVS) 제어기를 적용하여, 정밀 수확 루프(탐지-접근-수확)를 구현
+- **Project GitHub**: [https://github.com/sawo0150/berry-good-bot](https://github.com/sawo0150/berry-good-bot)
+- [상세설명 페이지](../berry-good-bot){: .btn .btn--success .btn--x-large}
+
+### VRIS (VR Intervention System)
+- **종류**: 대규모 무인 자동화 시스템 모니터링 & 원격 개입 VR 관제 시스템
+- **내용**: Unity(VR)와 ROS2(로봇)를 연동하여 다수 로봇을 관제하고, Edge Case 발생 시 WebRTC/TCP 하이브리드 통신을 통해 저지연(200ms 미만)으로 1인칭 원격 제어 개입 수행
+- [상세설명 페이지](../VR-intervention_system){: .btn .btn--success .btn--x-large}
 
 ---
 
