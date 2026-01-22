@@ -51,6 +51,17 @@ classes: "text-white"  # 텍스트 색상을 흰색으로 설정 (필요시 다�
 
 ## 프로젝트 핵심 요약
 
+### 과일 수확 로봇 (Berry-Good Bot)
+- **종류**: ROS2 기반 자율 과일 수확 로봇 (2025 공과대학 창의설계축전 동상)
+- **내용**: 100만원대 저비용 하드웨어에 YOLO-Pose 인식과 Hybrid Visual Servoing(IBVS+PBVS) 제어기를 적용하여, 정밀 수확 루프(탐지-접근-수확)를 구현
+- **Project GitHub**: [https://github.com/sawo0150/berry-good-bot](https://github.com/sawo0150/berry-good-bot)
+- [상세설명 페이지](../berry-good-bot){: .btn .btn--success .btn--x-large}
+
+### VRIS (VR Intervention System)
+- **종류**: 대규모 무인 자동화 시스템 모니터링 & 원격 개입 VR 관제 시스템
+- **내용**: Unity(VR)와 ROS2(로봇)를 연동하여 다수 로봇을 관제하고, Edge Case 발생 시 WebRTC/TCP 하이브리드 통신을 통해 저지연(200ms 미만)으로 1인칭 원격 제어 개입 수행
+- [상세설명 페이지](../VR-intervention_system){: .btn .btn--success .btn--x-large}
+
 ### 자율주행 SW 고도화 경진대회 프로젝트
 - **종류**: 자율 주행 관련 Task 수행 시스템 개발
 - **내용**: 유아용 차를 개조하여 자율주행 시스템 개발 (도로 주행, 차량 추월, 신호 인식, 주차 기능 구현)
@@ -63,16 +74,6 @@ classes: "text-white"  # 텍스트 색상을 흰색으로 설정 (필요시 다�
 - **Project GitHub**: [https://github.com/sawo0150/2025_GeekSeek](https://github.com/sawo0150/2025_GeekSeek)
 - [상세설명 페이지](../2025_fastMRI_challenge){: .btn .btn--success .btn--x-large}
 
-### 과일 수확 로봇 (Berry-Good Bot)
-- **종류**: ROS2 기반 자율 과일 수확 로봇 (2025 공과대학 창의설계축전 동상)
-- **내용**: 100만원대 저비용 하드웨어에 YOLO-Pose 인식과 Hybrid Visual Servoing(IBVS+PBVS) 제어기를 적용하여, 정밀 수확 루프(탐지-접근-수확)를 구현
-- **Project GitHub**: [https://github.com/sawo0150/berry-good-bot](https://github.com/sawo0150/berry-good-bot)
-- [상세설명 페이지](../berry-good-bot){: .btn .btn--success .btn--x-large}
-
-### VRIS (VR Intervention System)
-- **종류**: 대규모 무인 자동화 시스템 모니터링 & 원격 개입 VR 관제 시스템
-- **내용**: Unity(VR)와 ROS2(로봇)를 연동하여 다수 로봇을 관제하고, Edge Case 발생 시 WebRTC/TCP 하이브리드 통신을 통해 저지연(200ms 미만)으로 1인칭 원격 제어 개입 수행
-- [상세설명 페이지](../VR-intervention_system){: .btn .btn--success .btn--x-large}
 
 ---
 
