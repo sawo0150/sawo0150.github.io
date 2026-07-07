@@ -2,7 +2,7 @@
 
 layout: single  
 title: "RealTime-SAM2-Tracker-Camera"  
-# categories: Projects
+categories: Project
 tags: [Projects, SAM2]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
@@ -11,6 +11,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"  
 header:  
   overlay_image: /assets/images/portfolio-header.jpg  
+  teaser: /images/2024-12-25-RealTime-SAM2-Tracker-Camera/tmpF295.png
   overlay_filter: rgba(0, 0, 0, 0.5)  
   caption: "Photo credit: [Unsplash](https://unsplash.com)"  
   actions:  

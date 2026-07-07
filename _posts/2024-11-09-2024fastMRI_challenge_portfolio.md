@@ -2,7 +2,7 @@
 
 layout: single  
 title: "2024 SNU FastMRI Challenge 프로젝트"  
-# categories: Projects
+categories: Competition
 tags: [Projects, AI, MRI reconstruction]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
@@ -11,6 +11,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"  
 header:  
   overlay_image: /assets/images/2024SNU_FastMRI-header.jpg  
+  teaser: /images/2024-11-09-2024fastMRI_challenge_portfolio/image-20241110014155214.png
   overlay_filter: rgba(0, 0, 0, 0.5)  
   caption: "Photo credit: [Unsplash](https://unsplash.com)"  
   actions:  

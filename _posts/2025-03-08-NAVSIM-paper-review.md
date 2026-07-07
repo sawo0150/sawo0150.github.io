@@ -2,7 +2,7 @@
 
 layout: single  
 title: "[Paper-review] NAVSIM: Data-Driven Non-Reactive Autonomous Vehicle Simulation and Benchmarking"  
-# categories: PaperReview
+categories: PaperReview
 tags: [PaperReview, E2E automous driving]
 excerpt: "Pap"  
 author_profile: true  
@@ -11,6 +11,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"  
 header:  
   overlay_image: /assets/images/portfolio-header.jpg  
+  teaser: /images/2025-03-08-NAVSIM-paper-review/image-20250308221205616.png
   overlay_filter: rgba(0, 0, 0, 0.5)  
   caption: "Photo credit: [Unsplash](https://unsplash.com)"  
   actions:  

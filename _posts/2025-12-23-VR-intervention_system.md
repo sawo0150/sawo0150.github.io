@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "VRIS: 대규모 무인 자동화 시스템 모니터링 & 원격 개입 VR 관제 시스템"
-# categories: Projects
+categories: Project
 tags: [Projects, VR, ROS2, WebRTC, Teleoperation, SLAM, Unity]
 excerpt: "VR 기반 가상 관제실에서 다수 로봇을 모니터링하고, Edge Case에서 사람이 VR로 원격 개입(Intervention)하는 시스템(VRIS) 구현"
 author_profile: true
@@ -10,6 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
+  teaser: /images/2025-12-23-VR-intervention_system/tmp172D-1766575993685.jpg
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "VRIS (VR Intervention System)"
   actions:

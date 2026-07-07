@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "LLM IoT 자율주행 Agent"
+categories: Project
 tags: [Projects, LLM, IoT, Robotics, MCP, MQTT, 자율주행]
 excerpt: "LLM Agent가 MCP Server를 통해 자율주행 로봇/환경센서/UI·TTS/카메라 기능을 통합 제어하는 홈 모바일 AI 비서 프로젝트"
 author_profile: true
@@ -9,6 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
+  teaser: /images/2025-09-12-LLM_IOT_AutoDriving_Agent/image-20251223163905687.png
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "LLM × Robotics × IoT"
   actions:

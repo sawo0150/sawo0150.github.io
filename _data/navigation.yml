@@ -1,8 +1,6 @@
 # main links
 main:
-  - title: "Category"
-    url: /categories/
-  - title: "Tag"
+  - title: "태그"
     url: /tags/
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
@@ -12,3 +10,18 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+
+# sidebar navigation (shown via page front matter: sidebar: nav: "categories")
+categories:
+  - title: "카테고리"
+    children:
+      - title: "project"
+        url: /categories/project/
+      - title: "competition"
+        url: /categories/competition/
+      - title: "paper review"
+        url: /categories/paper-review/
+      - title: "book review"
+        url: /categories/book-review/
+      - title: "thoughts"
+        url: /categories/thoughts/

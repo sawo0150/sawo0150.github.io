@@ -1,0 +1,28 @@
+# Top-level content categories shown on the /categories/ hub page.
+# taxonomy: value used in each post's `categories:` front matter (must match exactly)
+# slug: used to build the archive page permalink /categories/<slug>/
+- taxonomy: Project
+  label: "project"
+  slug: project
+  description: "학교 밖에서 진행한 개인/사이드 프로젝트 기록"
+  icon: "fa-solid fa-diagram-project"
+- taxonomy: Competition
+  label: "competition"
+  slug: competition
+  description: "각종 대회, 챌린지, 공모전 참가 기록"
+  icon: "fa-solid fa-trophy"
+- taxonomy: PaperReview
+  label: "paper review"
+  slug: paper-review
+  description: "읽고 정리한 논문 리뷰"
+  icon: "fa-solid fa-book-open"
+- taxonomy: BookReview
+  label: "book review"
+  slug: book-review
+  description: "책을 읽고 남긴 기록"
+  icon: "fa-solid fa-book"
+- taxonomy: Thoughts
+  label: "thoughts"
+  slug: thoughts
+  description: "평소 생각과 아이디어 정리"
+  icon: "fa-solid fa-lightbulb"

@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "2025 SNU FastMRI Challenge - GeekSeek"
-# categories: Projects
+categories: Competition
 tags: [Projects, MedicalImaging, MRI, DeepLearning, PyTorch, Reconstruction]
 excerpt: "FastMRI 가속 재구성 챌린지: 데이터/학습/아키텍처를 체계적으로 탐색해 리더보드 SSIM을 끌어올린 기록"
 author_profile: true
@@ -10,6 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
+  teaser: /images/2025-10-03-2025_fastMRI_challenge/image-20251224192913056.png
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "Photo credit: [Unsplash](https://unsplash.com)"
   actions:

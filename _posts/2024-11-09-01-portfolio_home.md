@@ -8,6 +8,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg  # 헤더 이미지 경로 설정
+  teaser: /assets/images/portfolio-header.jpg
   overlay_filter: rgba(0, 0, 0, 0.5)  # 어두운 필터 추가하여 텍스트 대비 높이기
   caption: "Photo credit: [Unsplash](https://unsplash.com)"
   actions:

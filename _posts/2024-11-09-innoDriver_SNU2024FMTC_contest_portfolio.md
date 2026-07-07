@@ -2,7 +2,7 @@
 
 layout: single  
 title: "자율주행 SW 고도화 경진대회 프로젝트"  
-# categories: Projects
+categories: Competition
 tags: [Projects, 자율주행, ROS]
 excerpt: "포트폴리오 프로젝트 상세 설명 페이지"  
 author_profile: true  
@@ -11,6 +11,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"  
 header:  
   overlay_image: /assets/images/portfolio-header.jpg  
+  teaser: /images/2024-11-09-innoDriver_SNU2024FMTC_contest_portfolio/image-20241110012400056.png
   overlay_filter: rgba(0, 0, 0, 0.5)  
   caption: "Photo credit: [Unsplash](https://unsplash.com)"  
   actions:  

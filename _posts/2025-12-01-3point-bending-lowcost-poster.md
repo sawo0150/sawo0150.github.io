@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "초저비용 3점 굽힘 시험기 개발 및 3D 프린팅(PLA) 충전율 효율 분석"
-# categories: Projects
+categories: Project
 tags: [Projects, 3D프린팅, 기계시험, 3점굽힘, ROS2, 센서융합]
 excerpt: "물 추(중력) 기반 초저비용 3점 굽힘 시험기를 직접 제작하고, PLA 출력물 충전율(40/60/80/100%)에 따른 강도·강성·효율을 정량 분석"
 author_profile: true
@@ -10,6 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
+  teaser: /images/2025-12-01-3point-bending-lowcost-poster/image-20251224195522360.png
   overlay_filter: rgba(0, 0, 0, 0.5)
   caption: "Project Poster & Prototype"
   actions:

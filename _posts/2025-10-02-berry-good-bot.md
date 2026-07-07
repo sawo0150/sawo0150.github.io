@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "과일 수확 로봇 (Berry-Good Bot) - 2025 공과대학 창의설계축전"
+categories: Competition
 tags: [Projects, Robotics, ROS2, Jetson, Visual-Servoing, YOLO, Agriculture]
 excerpt: "저비용(약 115만원) ROS2 기반 모듈형 과일 수확 로봇: YOLO-Pose 인식 + Hybrid Visual Servo + Behavior Tree로 수확 자동화"
 author_profile: true
@@ -9,6 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "list-alt"
 header:
   overlay_image: /assets/images/portfolio-header.jpg
+  teaser: /images/2025-10-02-berry-good-bot/과일수확로봇-대표이미지.png
   overlay_filter: rgba(0, 0, 0, 0.55)
   caption: "Berry-Good Bot | Fruit Harvesting Robot"
   actions:
